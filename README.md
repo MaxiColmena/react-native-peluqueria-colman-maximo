@@ -81,7 +81,97 @@ El frontend corre en: http://localhost:3000
 | PUT | /turnos/:id | Actualizar turno |
 | DELETE | /turnos/:id | Eliminar turno |
 
+## 📡 API REST - Endpoints
+
+Base URL: `http://localhost:3001`
+
 ---
+
+### GET /turnos
+Retorna todos los turnos. Acepta filtros por query params.
+
+**Query params opcionales:**
+- `nombre` → busca por nombre (parcial, sin distinción de mayúsculas)
+- `estado` → filtra por estado (pendiente, confirmado, cancelado)
+
+**Ejemplo:**
+GET http://localhost:3001/turnos
+GET http://localhost:3001/turnos?nombre=maximo
+GET http://localhost:3001/turnos?estado=pendiente
+
+---
+
+### GET /turnos/:id
+Retorna un turno específico por su ID.
+
+**Ejemplo:**
+GET http://localhost:3001/turnos/69d2ef8a82ef01e58d551477
+
+---
+
+### POST /turnos
+Crea un nuevo turno.
+
+**Body (JSON):**
+```json
+{
+  "nombre": "Maximo",
+  "servicio": "Corte",
+  "fecha": "2026-04-06",
+  "hora": "10:00"
+}
+```
+
+**Respuesta exitosa (201):**
+```json
+{
+  "_id": "...",
+  "nombre": "Maximo",
+  "servicio": "Corte",
+  "fecha": "2026-04-06",
+  "hora": "10:00",
+  "estado": "pendiente",
+  "createdAt": "...",
+  "updatedAt": "..."
+}
+```
+---
+
+### PUT /turnos/:id
+Actualiza un turno existente.
+
+**Body (JSON):**
+```json
+{
+  "nombre": "Maximo",
+  "servicio": "Corte y Barba",
+  "fecha": "2026-04-06",
+  "hora": "11:00",
+  "estado": "confirmado"
+}
+```
+
+---
+
+### DELETE /turnos/:id
+Elimina un turno por su ID.
+
+**Respuesta exitosa (200):**
+```json
+{
+  "mensaje": "Turno eliminado correctamente"
+}
+```
+
+---
+
+### Errores comunes
+
+| Código | Descripción |
+|--------|-------------|
+| 400 | Campos obligatorios faltantes |
+| 404 | Turno no encontrado |
+| 500 | Error interno del servidor |
 
 ## 👨‍💻 Autor
 
